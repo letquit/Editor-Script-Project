@@ -15,8 +15,8 @@ MonoBehaviour:
   _name: Skeleton
   _monsterType: 1
   _changeToDropItem: 20
-  _rangeOfAwareness: 10
-  _damage: 2
-  _health: 3
-  _speed: 2
+  _rangeOfAwareness: 5
+  _damage: 12
+  _health: 10
+  _speed: 0
   _battleCry: I've get
