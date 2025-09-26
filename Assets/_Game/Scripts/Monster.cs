@@ -6,6 +6,11 @@ public class Monster : MonoBehaviour
     [SerializeField]
     private MonsterData _data;
     public MonsterData Data => _data;
+
+    [Separator(1, 20)]
+    
+    [SerializeField]
+    private int _health;
     
     private void Awake()
     {
