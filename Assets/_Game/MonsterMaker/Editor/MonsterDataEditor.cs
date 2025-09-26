@@ -54,8 +54,19 @@ public class MonsterDataEditor : Editor
         {
             EditorGUI.indentLevel++;
             EditorGUILayout.LabelField("Combat State", EditorStyles.boldLabel);
+            
+            EditorGUILayout.BeginHorizontal();
+            
+            EditorGUIUtility.labelWidth = 70;
             EditorGUILayout.PropertyField(_health, new GUIContent("Health"));
+            if (_health.intValue < 0)
+            {
+                EditorGUILayout.HelpBox("Should not have negative Health", MessageType.Warning);
+            }
             EditorGUILayout.PropertyField(_speed, new GUIContent("Speed"));
+            
+            EditorGUILayout.EndHorizontal();
+            
             EditorGUILayout.PropertyField(_damage, new GUIContent("Damage"));
             EditorGUI.indentLevel--;
         }
@@ -68,11 +79,6 @@ public class MonsterDataEditor : Editor
         // {
         //     EditorGUILayout.HelpBox("Caution: No name specified. Please name the monster!", MessageType.Warning);
         // }
-        
-        if (_health.intValue < 0)
-        {
-            EditorGUILayout.HelpBox("Should not have negative Health", MessageType.Warning);
-        }
         
         serializedObject.ApplyModifiedProperties();
     }
