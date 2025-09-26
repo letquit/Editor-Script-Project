@@ -23,7 +23,6 @@ public class MonsterData : ScriptableObject
     private bool _canEnterCombat = true;
     public bool CanEnterCombat => _canEnterCombat;
 
-    [Header("Combat Stats")] 
     [SerializeField] 
     private int _damage = 1;
     public int Damage => _damage;

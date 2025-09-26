@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEditor;
+using Random = UnityEngine.Random;
 
 [CustomEditor(typeof(MonsterData))]
 public class MonsterDataEditor : Editor
@@ -56,7 +57,6 @@ public class MonsterDataEditor : Editor
             EditorGUILayout.LabelField("Combat State", EditorStyles.boldLabel);
             
             EditorGUILayout.BeginHorizontal();
-            
             EditorGUIUtility.labelWidth = 70;
             EditorGUILayout.PropertyField(_health, new GUIContent("Health"));
             if (_health.intValue < 0)
@@ -64,10 +64,16 @@ public class MonsterDataEditor : Editor
                 EditorGUILayout.HelpBox("Should not have negative Health", MessageType.Warning);
             }
             EditorGUILayout.PropertyField(_speed, new GUIContent("Speed"));
-            
             EditorGUILayout.EndHorizontal();
             
+            EditorGUILayout.BeginHorizontal();
             EditorGUILayout.PropertyField(_damage, new GUIContent("Damage"));
+            if (GUILayout.Button("Random Stats"))
+            {
+                RandomizeStats();
+            }
+            EditorGUILayout.EndHorizontal();
+            
             EditorGUI.indentLevel--;
         }
 
@@ -88,5 +94,12 @@ public class MonsterDataEditor : Editor
         Rect rect = GUILayoutUtility.GetRect(18, 18, "TextField");
         EditorGUI.ProgressBar(rect, value, label);
         EditorGUILayout.Space(10);
+    }
+
+    private void RandomizeStats()
+    {
+        _health.intValue = Random.Range(1, 25);
+        _speed.intValue = Random.Range(1, 25);
+        _damage.intValue = Random.Range(1, 25);
     }
 }
