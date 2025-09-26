@@ -19,6 +19,9 @@ public class MonsterData : ScriptableObject
     [Tooltip("Radius size where monster will see the player")]
     private float _rangeOfAwareness =10;
     public float RangeOfAwareness => _rangeOfAwareness;
+    [SerializeField]
+    private bool _canEnterCombat = true;
+    public bool CanEnterCombat => _canEnterCombat;
 
     [Header("Combat Stats")] 
     [SerializeField] 

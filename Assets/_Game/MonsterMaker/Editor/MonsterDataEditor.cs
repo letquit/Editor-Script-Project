@@ -1,36 +1,80 @@
+using System;
 using UnityEngine;
 using UnityEditor;
 
 [CustomEditor(typeof(MonsterData))]
 public class MonsterDataEditor : Editor
 {
+    private SerializedProperty _name;
+    private SerializedProperty _monsterType;
+    private SerializedProperty _chanceToDropItem;
+    private SerializedProperty _rangeOfAwareness;
+    private SerializedProperty _canEnterCombat;
+    
+    private SerializedProperty _damage;
+    private SerializedProperty _health;
+    private SerializedProperty _speed;
+    
+    private SerializedProperty _battleCry;
+
+    private void OnEnable()
+    {
+        _name = serializedObject.FindProperty("_name");
+        _monsterType = serializedObject.FindProperty("_monsterType");
+        _chanceToDropItem = serializedObject.FindProperty("_changeToDropItem");
+        _rangeOfAwareness = serializedObject.FindProperty("_rangeOfAwareness");
+        _canEnterCombat = serializedObject.FindProperty("_canEnterCombat");
+        _damage = serializedObject.FindProperty("_damage");
+        _health = serializedObject.FindProperty("_health");
+        _speed = serializedObject.FindProperty("_speed");
+        _battleCry = serializedObject.FindProperty("_battleCry");
+    }
+
     public override void OnInspectorGUI()
     {
-        MonsterData data = (MonsterData)target;
-        EditorGUILayout.LabelField(data.Name.ToUpper(), EditorStyles.boldLabel);
+        serializedObject.UpdateIfRequiredOrScript();
+        
+        EditorGUILayout.LabelField(_name.stringValue.ToUpper(), EditorStyles.boldLabel);
         EditorGUILayout.Space(10);
 
-        float difficulty = data.Health + data.Damage + data.Speed; 
+        float difficulty = _health.intValue + _damage.intValue + _speed.intValue; 
         ProgressBar(difficulty / 100, "Difficulty");
         
-        base.OnInspectorGUI();
+        EditorGUILayout.LabelField("General State", EditorStyles.boldLabel);
+        EditorGUILayout.PropertyField(_name, new GUIContent("Name"));
+        EditorGUILayout.PropertyField(_monsterType, new GUIContent("Monster Type"));
+        EditorGUILayout.LabelField("Item Drop Chance:");
+        _chanceToDropItem.floatValue = EditorGUILayout.Slider(_chanceToDropItem.floatValue, 0, 100);
+        EditorGUILayout.PropertyField(_rangeOfAwareness, new GUIContent("Awareness"));
+        EditorGUILayout.PropertyField(_canEnterCombat, new GUIContent("Can Enter Combat?"));
         
-        EditorGUILayout.LabelField("-----------");
+        EditorGUILayout.Space(10);
 
-        if (data.Name == string.Empty)
+        if (_canEnterCombat.boolValue == true)
         {
-            EditorGUILayout.HelpBox("Caution: No name specified. Please name the monster!", MessageType.Warning);
+            EditorGUI.indentLevel++;
+            EditorGUILayout.LabelField("Combat State", EditorStyles.boldLabel);
+            EditorGUILayout.PropertyField(_health, new GUIContent("Health"));
+            EditorGUILayout.PropertyField(_speed, new GUIContent("Speed"));
+            EditorGUILayout.PropertyField(_damage, new GUIContent("Damage"));
+            EditorGUI.indentLevel--;
         }
 
-        if (data.MonsterType == MonsterType.None)
-        {
-            EditorGUILayout.HelpBox("No MonsterType selected", MessageType.Warning);
-        }
+        EditorGUILayout.Space(10);
+        EditorGUILayout.PropertyField(_battleCry, new GUIContent("Battle Cry"));
+        EditorGUILayout.LabelField("Dialogue", EditorStyles.boldLabel);
         
-        if (data.Health < 0)
+        // if (_name.stringValue == string.Empty)
+        // {
+        //     EditorGUILayout.HelpBox("Caution: No name specified. Please name the monster!", MessageType.Warning);
+        // }
+        
+        if (_health.intValue < 0)
         {
             EditorGUILayout.HelpBox("Should not have negative Health", MessageType.Warning);
         }
+        
+        serializedObject.ApplyModifiedProperties();
     }
 
     private void ProgressBar(float value, string label)
