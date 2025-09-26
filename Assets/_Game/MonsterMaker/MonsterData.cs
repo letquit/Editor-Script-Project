@@ -39,4 +39,8 @@ public class MonsterData : ScriptableObject
     [TextArea()]
     private string _battleCry = "...";
     public string BattleCry => _battleCry;
+    
+    [SerializeField]
+    private MonsterAbility[] _abilities;
+    public MonsterAbility[] Abilities => _abilities;
 }
