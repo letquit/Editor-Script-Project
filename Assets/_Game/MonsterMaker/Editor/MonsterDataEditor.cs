@@ -16,6 +16,21 @@ public class MonsterDataEditor : Editor
         base.OnInspectorGUI();
         
         EditorGUILayout.LabelField("-----------");
+
+        if (data.Name == string.Empty)
+        {
+            EditorGUILayout.HelpBox("Caution: No name specified. Please name the monster!", MessageType.Warning);
+        }
+
+        if (data.MonsterType == MonsterType.None)
+        {
+            EditorGUILayout.HelpBox("No MonsterType selected", MessageType.Warning);
+        }
+        
+        if (data.Health < 0)
+        {
+            EditorGUILayout.HelpBox("Should not have negative Health", MessageType.Warning);
+        }
     }
 
     private void ProgressBar(float value, string label)
