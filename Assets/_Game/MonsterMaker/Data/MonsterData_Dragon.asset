@@ -21,3 +21,13 @@ MonoBehaviour:
   _health: 19
   _speed: 15
   _battleCry: ...
+  _abilities:
+  - _name: Fireball
+    _damage: 0
+    _element: 0
+  - _name: Mystic Orb
+    _damage: 0
+    _element: 0
+  - _name: Lightning
+    _damage: 0
+    _element: 0
