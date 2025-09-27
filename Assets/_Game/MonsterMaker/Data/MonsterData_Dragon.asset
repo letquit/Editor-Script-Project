@@ -23,11 +23,11 @@ MonoBehaviour:
   _battleCry: ...
   _abilities:
   - _name: Fireball
-    _damage: 0
+    _damage: 10
     _element: 0
   - _name: Mystic Orb
-    _damage: 0
+    _damage: 5
     _element: 0
   - _name: Lightning
-    _damage: 0
+    _damage: 8
     _element: 0
